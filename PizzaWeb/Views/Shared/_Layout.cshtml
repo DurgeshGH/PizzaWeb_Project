@@ -1,0 +1,187 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    string viewPath = ViewContext.View.Path;
+    bool isAccessDeniedPage = viewPath.Contains("/Account/AccessDenied.cshtml");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PizzaCorner</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BooksWorld.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css" />
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PizzaCorner</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                     
+                       
+                      
+
+
+                            @if (User.IsInRole(SD.Role_Admin))
+                            {
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Content Management
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                        </li>
+                                        
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                        </li>
+
+                                        @* <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                </li> *@
+
+                                        <li><hr class="dropdown-divider"></li>
+                                    </ul>
+                                </li>
+
+                            }
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        </li>
+                        
+                    </ul>
+
+                    <partial name="_LoginPartial" />
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_Notification" />
+            @RenderBody()
+        </main>
+    </div>
+
+     @if (!isAccessDeniedPage)
+    {
+        @* <footer class="border-top footer bg-primary text-muted" style="height:250px"> *@
+        <footer class="text-center text-lg-start text-white"
+                style="background-color: #929fba">
+           @*  <div class="text-center;" style="color:white; text-align:center">
+                Pizza World<i class="fa-solid fa-pizza"></i>
+            </div> *@
+
+
+            <div class="container">
+               
+                    <div class="container p-4 pb-0">
+                        <!-- Section: Links -->
+                        <section class="">
+                            <!--Grid row-->
+                            <div class="row">
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                                    <h6 class="text-uppercase mb-4 font-weight-bold">
+                                        
+                                    </h6>
+                                    <p>
+                                    329 Queensberry Street, North Melbourne VIC 3051,
+                                    Australia.
+
+                                    123 456 7890
+                                    </p>
+                                </div>
+                                <!-- Grid column -->
+
+                                <hr class="w-100 clearfix d-md-none" />
+
+                                <!-- Grid column -->
+                                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                                    <h6 class="text-uppercase mb-4 font-weight-bold">Resources</h6>
+                                    <p>
+                                        <a class="text-white">Home</a>
+                                    </p>
+                                    <p>
+                                        <a class="text-white">About</a>
+                                    </p>
+                                    <p>
+                                        <a class="text-white">Blog</a>
+                                    </p>
+                                    <p>
+                                        <a class="text-white">Privacy</a>
+                                    </p>
+                                </div>
+                                <!-- Grid column -->
+
+                                <hr class="w-100 clearfix d-md-none" />
+
+                                <!-- Grid column -->
+                                <hr class="w-100 clearfix d-md-none" />
+
+                                <!-- Grid column -->
+                                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                                    <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                                <p><i class="fas fa-home mr-3"></i> Australia, NY 10012, US</p>
+                                    <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+                                    <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                                    <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                                </div>
+                                <!-- Grid column -->
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                                    <h6 class="text-uppercase mb-4 font-weight-bold"></h6>
+@*                                          <img src="~/bgimg/pzblackbg.png" />
+                                 *@
+                                </div>
+                            </div>
+                            <!--Grid row-->
+                        </section>
+                        <!-- Section: Links -->
+                    </div>
+
+            </div>
+        </footer>
+
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

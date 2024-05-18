@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Product>
+
+
+
+
+<div class="row pb-3">
+
+    <div class="pizza-background" style="background-color:lightcyan">
+        <div class="row">
+            <div class="pizza-bg-img col-sm-3 col-md-3">
+                <img src="~/bgimg/goldenimg.jpg" />
+            </div>
+            <div class="col-sm-9 col-md-9">
+                <h1 style="font-style:italic; text-align:center"> Welcome to Pizza Corner</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="pl-1">
+        <hr style="margin-top:11px; margin-top: 37px; width: 35%; margin-bottom: 37px; margin-left: 30%;" />
+
+    </div>
+
+
+   @*  <div class="row">
+        <h5>Greate Deals</h5>
+    </div> *@
+
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-4 col-sm-4">
+            <div class="row p-4">
+                <div class="col-10 p-1">
+                    <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                        @if (product.ImageUrl != null && product.ImageUrl.Count() > 0)
+                        {
+                            <img src="@product.ImageUrl" class="card-img-top rounded" style="height: 200px; />
+                        }
+                        else
+                        {
+                            <img src="https://placehold.co/500x600/png" class="card-img-top rounded" />
+                        }                        <div class="card-body pb-0">
+
+                           @*  <div class="pl-1">
+                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                    List Price:
+                                    <span class="text-decoration-line-through">
+                                        @product.ListPrice.ToString("c")
+                                    </span>
+                                </p>
+                            </div> *@
+
+                            <div class="pl-1">
+                                <p class="text-dark text-opacity-75 text-center">
+                                    Price:
+                                    <span>
+                                        @product.Price100.ToString("c")
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div class="pl-1 pb-3">
+                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                    <span>
+                                        <b>  @product.Title </b>
+                                    </span>
+                                </p>
+                            </div>
+
+
+                        </div>
+                        <div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">
+                                    Details
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary bg-gradient border-0 form-control">
+                                    Details
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+@*     <div class="row" style="background-color:#f4f2ed; height:100px; margin-top:65px; margin-bottom:30px">
+        <div class="col-sm-12 col-md-12 text-center">
+            
+                <h6 style="margin-top:30px">Our Some Feature</h6>
+
+                <p style="margin-top:27px; text-align:center">
+                    The role of a good cook ware in the preparation of a sumptuous meal cannot be
+                    over emphasized then one consider white bread
+                </p>
+            <div class="row" style="margin-top:50px;">
+                <div class="col-sm-3 col-md-3">
+                    <img src="~/bgimg/freshdish1.png" style="height:60px; width:100px" /><br /><br /> Fresh Dishes
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <img src="~/bgimg/variousmenu1.png" style="height:60px; width:100px" /><br /><br />  Various Menu
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <img src="~/bgimg/wellservice1.png" style="height:60px; width:100px" /> <br /><br />  Well Service
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <img src="~/bgimg/fastdelivery1.png" style="height:60px; width:100px" /><br /><br />  Fast Delivery
+                </div>
+                
+               
+            </div>
+        </div>
+    </div> *@
+
+
+</div>
+
+
+
+<style>
+    .pizza-background {
+       /*  background-image: url('C:\CRUDOPeration_EF\PizzaWeb\PizzaWeb\wwwroot\BgImg\pzBGimg.jfif'); /* Replace 'path_to_your_pizza_image.jpg' with the actual path to your pizza image */ */
+        background-size: cover;
+        background-position: center;
+        padding: 50px 0; /* Add padding as needed */
+        width:100%
+    }
+</style>
